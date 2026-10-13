@@ -1,0 +1,59 @@
+---
+- name: Install_Packages
+  hosts: servers
+  become: yes
+
+  vars:
+    packages_to_install:
+      - git
+      - unzip
+      - tar
+      - httpd
+      - nginx
+      - wget
+
+    service_to_manage:
+      - nginx
+      - httpd
+
+  tasks:
+  - name: Install_Packages
+    dnf:
+      name: "{{ item }}" 
+      state: present
+    loop: "{{ packages_to_install }}"  
+    
+  - name: Display package list 
+    debug:
+      msg: "Installing {{ packages_to_install }}" 
+
+  - name: Apache2 run on port 8080
+    lineinfile:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '^Listen\s+'
+      line: 'Listen 8080' 
+    notify: Restart Apache   
+
+  - name: Start & Enable Services
+    service:
+      name: "{{ item }}"
+      state: started
+      enabled: yes
+    loop: "{{ service_to_manage }}"    
+
+  - name: custom content in NGINX
+    copy:
+      content: "Hello Shivam from NGINX \n"
+      dest: /usr/share/nginx/html/index.html
+  
+  - name: custom content in APACHE 2
+    copy:
+      content: "Hello Shivam from APACHE 2 \n"
+      dest: /var/www/html/index.html
+
+  handlers:
+  - name: Restart Apache
+    service:
+      name: httpd
+      state: restarted
+
