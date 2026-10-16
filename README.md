@@ -42,7 +42,9 @@ Purpose
 
 This project was created for learning Ansible automation and server configuration.
 
+<img width="473" height="421" alt="Screenshot 2026-10-13 142807" src="https://github.com/user-attachments/assets/a9beadc6-c44d-4e5f-a4d3-cbc0db76f7ef" />
 
+<img width="560" height="287" alt="Screenshot 2026-10-13 142743" src="https://github.com/user-attachments/assets/0651954c-0818-4275-9352-2a2686a1b789" />
 
 
 
